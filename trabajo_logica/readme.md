@@ -1,0 +1,2 @@
+Ejercicio:
+Un software que tenga una lista de comidas, para arrancar una sola por ahora, arroz con pollo. que me diga exactamente cuanta comida necesito por persona. con la condicion que si una persona come mas, y es redituable, poder aumentar la proporcion. De los alimentos de la receta hay q comprar paquetes por kilo, y redondear para arriba. y elegir una de las 2 comidas de la receta como prioritaria, para redondear primero, y  q sobre mas de la otra(q tiene q ser la mas barata)
