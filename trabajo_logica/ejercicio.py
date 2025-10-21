@@ -22,42 +22,59 @@ def calcular():
             "condimentos": {"cantidad": 10, "precio": 800}
         }
 
-        # Si comen más, aumentar 25%        a -> alimento
+        # Si comen más, aumentar 25%
         if comen_mas == 1:
-            for a in receta:
-                receta[a]["cantidad"] *= 1.25
-                #receta = receta * 1.25 -> no se puede multiplicar un dict con un float
+            for alimento in receta:
+                receta[alimento]["cantidad"] *= 1.25
 
         comida_prioritaria = "pollo"
-
         totales = {}
         costos = {}
         costo_total = 0
 
         # Calcular totales y costos
-        for comida, datos in receta.items():
-            total_kg = (personas * datos["cantidad"]) / 1000
+        for comida in receta:
+            cantidad = receta[comida]["cantidad"]
+            precio = receta[comida]["precio"]
 
-            # Redondear diferente según el tipo
+            total_kg = (personas * cantidad) / 1000  # de gramos a kilos
+
+            # Redondear según el tipo
             if comida == comida_prioritaria:
-                total_kg = math.ceil(total_kg)     # al kilo entero
+                # Si es poca cantidad (menos de 1 kg), redondea a décima
+                if total_kg < 1:
+                    total_kg = round(total_kg, 1)
+                else:
+                    total_kg = math.ceil(total_kg)   # si es más, al kilo entero
             else:
-                total_kg = math.ceil(total_kg * 10) / 10  # a décimas
+                # Los demás redondean a una décima
+                total_kg = math.ceil(total_kg * 10) / 10  
 
             totales[comida] = total_kg
-            costos[comida] = total_kg * datos["precio"]
+            costos[comida] = total_kg * precio
             costo_total += costos[comida]
 
         # Mostrar el resultado
-        texto = f"Para {personas} personas:\n\n"
+        texto = "Para " + str(personas) + " personas:\n"
+
         for comida in receta:
-            texto += f"{comida}: {totales[comida]} kg → ${costos[comida]:.0f}\n"
-        texto += f"\nCosto total: ${costo_total:.0f}\n"
-        texto += f"Comen más: {'Sí' if comen_mas else 'No'}"
+            precio_kilo = receta[comida]["precio"]
+            kilos = totales[comida]
+            costo = costos[comida]
+
+            texto += (
+                comida.capitalize() + ": " + str(kilos) + " kg x $" + str(precio_kilo) + " = $" + str(int(costo)) + "\n")
+
+        texto += "\nCosto total: $" + str(int(costo_total)) + "\n"
+
+        if comen_mas:
+            texto += "Comen más: Sí (se aumentó un 25%)"
+        else:
+            texto += "Comen más: No"
 
         messagebox.showinfo("Resultado", texto)
 
-    except:
+    except ValueError:
         messagebox.showerror("Error", "Ingresá un número válido.")
 
 
@@ -71,7 +88,7 @@ entry_personas = tk.Entry(ventana)
 entry_personas.pack()
 
 variable_comen_mas = tk.IntVar()
-tk.Checkbutton(ventana, text="Comen más de lo normal", variable=variable_comen_mas).pack(pady=5)
+tk.Checkbutton(ventana, text=" Come o comen más de lo normal", variable=variable_comen_mas).pack(pady=5)
 
 tk.Button(ventana, text="Calcular", command=calcular).pack(pady=10)
 
