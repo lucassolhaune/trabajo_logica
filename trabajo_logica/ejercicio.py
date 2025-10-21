@@ -41,7 +41,7 @@ def calcular():
 
             # Redondear según el tipo
             if comida == comida_prioritaria:
-                # Si es poca cantidad (menos de 1 kg), redondea a décima
+                # Si es poca cantidad (menos de 1 kg), redondea a decimal
                 if total_kg < 1:
                     total_kg = round(total_kg, 1)
                 else:
