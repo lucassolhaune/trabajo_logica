@@ -41,12 +41,12 @@ def calcular():
 
             #redondeos
             if comida == "pollo":
-                #Con el alimento pollo =
-                #Si el total es menor a 1 kg, redondea a un decimal. Ej: Si es 0.83 -> 0.8
-                #Si pesa 1kg o mas redondea hacia arriba usando math.ceil(). Ej: 1.2 -> 2
+                #Con el alimento pollo:
+                #Si pesa menos a 1 kg, redondea a un decimal. Ej: Si es 0.83 -> 0.8
+                #Si pesa 1kg o mas redondea hacia arriba al kilo entero. Ej: 1.2 -> 2
                 kilos = round(kilos, 1) if kilos < 1 else math.ceil(kilos)
             else:
-                # Los demás ingredientes se redondean a una décima (0.1)
+                # Si no es pollo, los demás ingredientes los redondeo hacia arriba a la decima mas cercana. Ej: 1.26 -> 1.3kg
                 kilos = math.ceil(kilos * 10) / 10
             
             #Calcula el costo total de ese alimento (kilos * precio por kilo)
