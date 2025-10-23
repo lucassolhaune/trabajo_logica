@@ -1,3 +1,5 @@
+#### Lucas Solhaune - Logica y estructura de datos ###
+
 import tkinter as tk
 from tkinter import messagebox
 import math
@@ -8,37 +10,38 @@ def calcular():
 
         if personas <= 0 or personas > 50:
             messagebox.showerror("Error", "Ingresá un número entre 1 y 50.")
-            return #Sale de la funcion si el numero no es valido
+            return #Sale de la funcion si el numero no es valido dentro del rango que yo estableci
         
         #Verifica si el checkbox “Comen más” está marcado (1 = sí, 0 = no)
         comen_mas = var_comen_mas.get()
 
         #Diccionario con los ingredientes:
-        #cada clave es el nombre del alimento
-        #cada valor es una lista con [gramos por persona, precio por kilo]
+        #cada clave es el nombre del alimento.
+        #cada valor es una lista con [gramos por persona, precio por kilo].
         receta = {
-            "pollo": [200, 3500],
+            "pollo": [200, 3500], 
             "arroz": [100, 1200],
             "cebolla": [30, 1000],
             "condimentos": [10, 800]
         }
         
-        #Texto donde se irán acumulando los resultados para mostrar
+        #Texto donde se acumulan los resultados para mostrar.
         texto = f"Para {personas} personas:\n"
         total = 0
 
-        #Recorre cada alimento del diccionario.
+        #Recorre cada alimento del diccionario receta.
         #"comida" -> nombre (pollo, arroz, etc)
         #("gramos, precio") -> Valores de la lista
         for comida, (gramos, precio) in receta.items(): #Item devuelve "clave/valor"
             if comen_mas:
-                gramos *= 1.25  #si comen más, aumenta 25% por persona
+                gramos *= 1.25  #si comen más, aumenta 25% por persona (seleccionando el chekbox del principio)
 
             #Cuenta los kilos totales que se necesitan para esa comida
             kilos = (personas * gramos) / 1000 #Paso de gramos a kilos
 
             #redondeos
             if comida == "pollo":
+                #Con el alimento pollo =
                 #Si el total es menor a 1 kg, redondea a un decimal. Ej: Si es 0.83 -> 0.8
                 #Si pesa 1kg o mas redondea hacia arriba usando math.ceil(). Ej: 1.2 -> 2
                 kilos = round(kilos, 1) if kilos < 1 else math.ceil(kilos)
